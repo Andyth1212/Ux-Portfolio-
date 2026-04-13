@@ -186,12 +186,19 @@
     .fu.d4{transition-delay:0.32s}
 
     /* ─── HERO ─── */
+    #hero-outer{
+      height:200vh;
+      position:relative;
+    }
     #hero{
-      min-height:100vh;padding-top:68px;
+      height:100vh;padding-top:68px;
       display:flex;flex-direction:column;justify-content:flex-end;
       padding-bottom:3rem;padding-left:2.5rem;padding-right:2.5rem;
       border-bottom:1px solid var(--border);
-      position:relative;overflow:hidden;
+      position:sticky;top:0;overflow:hidden;
+      transform-origin:center center;
+      will-change:transform,border-radius;
+      z-index:1;
     }
     .hero-glow{
       position:absolute;width:700px;height:700px;border-radius:50%;
@@ -654,6 +661,7 @@
   </nav>
 
   <!-- HERO -->
+  <div id="hero-outer">
   <section id="hero">
     <div class="hero-glow"></div>
     <div style="position:relative;z-index:2">
@@ -684,6 +692,7 @@
       </div>
     </div>
   </section>
+  </div>
 
   <!-- TICKER -->
   <div class="ticker">
@@ -1141,10 +1150,20 @@
   }
 
   /* ═══════════════════════════════════
-     PARALLAX HERO TITLE ON SCROLL
+     HERO ZOOM-OUT ON SCROLL
   ═══════════════════════════════════ */
+  const heroEl    = document.getElementById('hero');
+  const heroTitle = document.querySelector('.hero-title');
+
   lenis.on('scroll', ({ scroll }) => {
-    const heroTitle = document.querySelector('.hero-title');
+    const vh       = window.innerHeight;
+    const progress = Math.min(Math.max(scroll / vh, 0), 1);
+    const scale    = 1 - progress * 0.1;
+    const radius   = progress * 28;
+
+    heroEl.style.transform   = `scale(${scale})`;
+    heroEl.style.borderRadius = `${radius}px`;
+
     if (heroTitle) {
       heroTitle.style.transform = `translateY(${scroll * 0.18}px)`;
       heroTitle.style.opacity   = Math.max(0, 1 - scroll / 600);
