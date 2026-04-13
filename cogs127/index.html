@@ -1,1 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COGS 127 Case Study — Andrew Tsutsumi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --ink: #1a1611;
+      --ink-light: #6b6358;
+      --accent: #c4502a;
+      --accent-pale: #e8d5cc;
+      --rule: #d4cbbf;
+      --grid-col: 8px;
+    }
 
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.6;
+    }
+
+    /* ─── Layout ─── */
+    .page-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ─── Header ─── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px 0 28px;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      transform: translateY(-12px);
+      animation: fadeUp 0.7s ease forwards 0.1s;
+    }
+
+    .logo {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    nav {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    nav a {
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      padding: 100px 0 80px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 64px;
+      align-items: end;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero-left {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.9s ease forwards 0.3s;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .eyebrow-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-pale);
+      padding: 5px 12px;
+      border-radius: 2px;
+    }
+
+    .eyebrow-line {
+      width: 40px;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .eyebrow-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 7vw, 88px);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink-light);
+      margin-bottom: 40px;
+      letter-spacing: 0.01em;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      border: 1px solid var(--rule);
+      padding: 10px 20px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.4);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .hero-right {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.9s ease forwards 0.5s;
+      padding-bottom: 8px;
+    }
+
+    .meta-block {
+      border-left: 2px solid var(--accent);
+      padding-left: 20px;
+      margin-bottom: 32px;
+    }
+
+    .meta-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 6px;
+    }
+
+    .meta-value {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    .meta-value.large {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    /* ─── Description ─── */
+    .description-section {
+      padding: 80px 0;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 64px;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.9s ease forwards 0.7s;
+    }
+
+    .section-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 72px;
+      font-weight: 300;
+      color: var(--rule);
+      line-height: 1;
+      user-select: none;
+    }
+
+    .description-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      margin-bottom: 20px;
+      color: var(--ink);
+    }
+
+    .description-content p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--ink-light);
+      max-width: 520px;
+    }
+
+    .description-content p + p {
+      margin-top: 16px;
+    }
+
+    /* ─── Topics grid ─── */
+    .topics-section {
+      padding: 80px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.9s ease forwards 0.9s;
+    }
+
+    .topics-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .topics-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    .topics-header-line {
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+
+    .topic-card {
+      background: var(--cream);
+      padding: 36px 28px;
+      transition: background 0.25s ease;
+      cursor: default;
+    }
+
+    .topic-card:hover {
+      background: rgba(255,255,255,0.7);
+    }
+
+    .topic-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .topic-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .topic-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--ink-light);
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      padding: 40px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 1.1s;
+    }
+
+    .footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--ink-light);
+    }
+
+    .footer-course {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    /* ─── Decorative vertical rule ─── */
+    .vert-rule {
+      position: fixed;
+      right: 48px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--rule) 20%, var(--rule) 80%, transparent);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* ─── Animations ─── */
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 760px) {
+      .page-wrap {
+        padding: 0 24px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding: 64px 0 56px;
+      }
+
+      .description-section {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .section-number {
+        font-size: 48px;
+      }
+
+      .topics-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .vert-rule {
+        display: none;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="vert-rule"></div>
+
+  <div class="page-wrap">
+
+    <!-- Header -->
+    <header>
+      <a href="https://andrewtsutsumi.com" class="logo"><span>Andrew</span> Tsutsumi</a>
+      <nav><a href="https://andrewtsutsumi.com">← Back to Portfolio</a></nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-left">
+        <div class="eyebrow">
+          <span class="eyebrow-tag">COGS 127</span>
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-label">Case Study</span>
+        </div>
+
+        <h1>Designing for<br /><em>Human Minds</em></h1>
+        <p class="subtitle">A cognitive systems design case study</p>
+
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          Currently in progress — check back soon
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="meta-block">
+          <p class="meta-label">Author</p>
+          <p class="meta-value large">Andrew Tsutsumi</p>
+        </div>
+        <div class="meta-block">
+          <p class="meta-label">Course</p>
+          <p class="meta-value">COGS 127 — Designing Human-Centered Technologies</p>
+        </div>
+        <div class="meta-block">
+          <p class="meta-label">Status</p>
+          <p class="meta-value">Coming Soon</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Description -->
+    <section class="description-section">
+      <div class="section-number">01</div>
+      <div class="description-content">
+        <h2>About this project</h2>
+        <p>
+          This case study explores the intersection of cognitive science and user experience design —
+          applying mental models, perception, and decision-making research to real-world interface challenges.
+        </p>
+        <p>
+          Full write-up, research findings, prototypes, and reflections will be published here once the project is complete.
+          In the meantime, feel free to <a href="https://andrewtsutsumi.com" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-pale);">explore the rest of the portfolio</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- Topics -->
+    <section class="topics-section">
+      <div class="topics-header">
+        <h2>What to expect</h2>
+        <div class="topics-header-line"></div>
+      </div>
+
+      <div class="topics-grid">
+        <div class="topic-card">
+          <span class="topic-num">01</span>
+          <p class="topic-name">Research & Discovery</p>
+          <p class="topic-desc">User interviews, cognitive task analysis, and problem framing grounded in behavioral research.</p>
+        </div>
+        <div class="topic-card">
+          <span class="topic-num">02</span>
+          <p class="topic-name">Ideation & Prototyping</p>
+          <p class="topic-desc">Wireframes, low-fi sketches, and iterative design explorations informed by cognitive principles.</p>
+        </div>
+        <div class="topic-card">
+          <span class="topic-num">03</span>
+          <p class="topic-name">Testing & Reflection</p>
+          <p class="topic-desc">Usability evaluations, findings synthesis, and design recommendations backed by data.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <span class="footer-name">Andrew Tsutsumi</span>
+      <span class="footer-course">COGS 127 &nbsp;·&nbsp; UC San Diego</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>
