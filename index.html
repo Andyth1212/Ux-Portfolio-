@@ -79,7 +79,6 @@
       position:fixed;top:0;left:0;right:0;z-index:200;height:68px;
       display:flex;align-items:center;justify-content:space-between;
       padding:0 2.5rem;
-      border-bottom:1px solid var(--border);
       background:rgba(28,28,28,0.92);backdrop-filter:blur(20px);
     }
     .nav-left{display:flex;align-items:center;gap:2rem}
@@ -198,7 +197,7 @@
       position:sticky;top:0;overflow:hidden;
       transform-origin:center center;
       will-change:transform,border-radius;
-      z-index:1;
+      z-index:1;border-bottom:none;
     }
     .hero-glow{
       position:absolute;width:700px;height:700px;border-radius:50%;
@@ -263,7 +262,6 @@
     /* ─── TICKER ─── */
     .ticker{
       padding:0.85rem 0;overflow:hidden;white-space:nowrap;
-      border-bottom:1px solid var(--border);
     }
     .ticker-track{
       display:inline-flex;
@@ -280,7 +278,7 @@
 
     /* ─── PROJECTS ─── */
     #projects{
-      padding:5rem 0;border-bottom:1px solid var(--border);
+      padding:5rem 0;
       position:relative;
     }
     .sec-hdr{
@@ -330,7 +328,6 @@
       display:grid;grid-template-columns:5rem 1fr auto;
       align-items:center;gap:2rem;
       padding:2.5rem 2.5rem;
-      border-top:1px solid var(--border);
       cursor:none;position:relative;
       transition:background 0.3s;
     }
@@ -369,7 +366,7 @@
 
     /* ─── ABOUT ─── */
     #about{
-      padding:5rem 2.5rem;border-bottom:1px solid var(--border);
+      padding:5rem 2.5rem;
       display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:center;
     }
     .about-photo-wrap{position:relative;max-width:420px}
@@ -430,7 +427,7 @@
     }
 
     /* ─── SERVICES ─── */
-    #services{padding:5rem 2.5rem;border-bottom:1px solid var(--border)}
+    #services{padding:5rem 2.5rem;}
     .svc-grid{
       display:grid;grid-template-columns:repeat(3,1fr);
       gap:1px;background:var(--border);border:1px solid var(--border);
@@ -465,8 +462,7 @@
     /* ─── CREDS ─── */
     #creds{
       display:grid;grid-template-columns:repeat(4,1fr);
-      background:var(--border);border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border);
+      background:var(--border);
     }
     .cr-box{
       background:var(--dark);padding:2.5rem 2rem;
@@ -488,7 +484,7 @@
 
     /* ─── CTA BANNER ─── */
     #cta-banner{
-      padding:7rem 2.5rem;border-bottom:1px solid var(--border);
+      padding:7rem 2.5rem;
       text-align:center;position:relative;overflow:hidden;
     }
     .cta-glow{
@@ -519,7 +515,7 @@
 
     /* ─── CONTACT ─── */
     #contact{
-      padding:5rem 2.5rem;border-bottom:1px solid var(--border);
+      padding:5rem 2.5rem;
       display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:start;
     }
     .con-left h2{
