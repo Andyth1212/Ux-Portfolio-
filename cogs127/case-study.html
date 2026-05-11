@@ -324,6 +324,30 @@
       margin-bottom: 0;
     }
 
+    /* ─── Screenshot ─── */
+    .screenshot-figure {
+      margin-top: 28px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .screenshot-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .screenshot-figure figcaption {
+      padding: 12px 20px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      border-top: 1px solid var(--rule);
+      background: rgba(255,255,255,0.3);
+    }
+
     /* ─── Footer ─── */
     footer {
       padding: 40px 0;
@@ -542,6 +566,21 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Prototype Screenshot -->
+      <div class="article-section">
+        <div class="section-label">
+          <h2>The prototype</h2>
+          <div class="section-label-line"></div>
+        </div>
+
+        <p>The AI Insights screen surfaces three prioritized recommendations — Critical, Important, and Moderate — replacing 13 equal-weight tabs with a clear hierarchy and a direct path to action.</p>
+
+        <figure class="screenshot-figure">
+          <img src="./ai-insights.png" alt="AI Insights screen prototype showing prioritized post-match recommendations in Deadlock" />
+          <figcaption>AI Insights screen — Figma prototype, Spring 2026</figcaption>
+        </figure>
       </div>
 
     </div><!-- end article-body -->
