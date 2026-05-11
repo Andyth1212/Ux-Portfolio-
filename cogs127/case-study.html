@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deadlock Case Study — Andrew Tsutsumi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --ink: #1a1611;
+      --ink-light: #6b6358;
+      --accent: #c4502a;
+      --accent-pale: #e8d5cc;
+      --rule: #d4cbbf;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.6;
+    }
+
+    .page-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ─── Header ─── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px 0 28px;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.1s;
+    }
+
+    .logo {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--ink); font-weight: 500; }
+
+    nav {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--accent); }
+
+    /* ─── Article header ─── */
+    .article-hero {
+      padding: 80px 0 64px;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.3s;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .eyebrow-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-pale);
+      padding: 5px 12px;
+      border-radius: 2px;
+    }
+
+    .eyebrow-line {
+      width: 40px;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .eyebrow-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 6vw, 68px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .article-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink-light);
+      margin-bottom: 48px;
+    }
+
+    /* Meta row */
+    .meta-row {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {}
+
+    .meta-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 5px;
+    }
+
+    .meta-value {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    /* ─── Article body ─── */
+    .article-body {
+      padding: 72px 0;
+    }
+
+    .article-section {
+      margin-bottom: 72px;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards;
+    }
+
+    .article-section:nth-child(1) { animation-delay: 0.5s; }
+    .article-section:nth-child(2) { animation-delay: 0.65s; }
+    .article-section:nth-child(3) { animation-delay: 0.8s; }
+    .article-section:nth-child(4) { animation-delay: 0.9s; }
+    .article-section:nth-child(5) { animation-delay: 1.0s; }
+    .article-section:nth-child(6) { animation-delay: 1.05s; }
+    .article-section:nth-child(7) { animation-delay: 1.1s; }
+    .article-section:nth-child(8) { animation-delay: 1.15s; }
+    .article-section:nth-child(9) { animation-delay: 1.2s; }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .section-label h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+
+    .section-label-line {
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--ink-light);
+      margin-bottom: 20px;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    blockquote {
+      border-left: 3px solid var(--accent);
+      margin: 32px 0;
+      padding: 4px 0 4px 24px;
+    }
+
+    blockquote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    blockquote cite {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    /* Stat callout */
+    .stat-row {
+      display: flex;
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin: 32px 0;
+    }
+
+    .stat-card {
+      flex: 1;
+      background: var(--cream);
+      padding: 28px 24px;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 300;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-desc {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--ink-light);
+    }
+
+    /* Finding cards */
+    .findings-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin-top: 24px;
+    }
+
+    .finding-card {
+      background: var(--cream);
+      padding: 28px 28px;
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .finding-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--accent);
+      padding-top: 1px;
+    }
+
+    .finding-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .finding-body {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink-light);
+      margin-bottom: 0;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 1.3s;
+    }
+
+    .footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--ink-light);
+    }
+
+    .footer-course {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    /* Decorative vertical rule */
+    .vert-rule {
+      position: fixed;
+      right: 48px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--rule) 20%, var(--rule) 80%, transparent);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 700px) {
+      .page-wrap { padding: 0 24px; }
+      .meta-row { gap: 24px; }
+      .stat-row { flex-direction: column; }
+      .vert-rule { display: none; }
+      footer { flex-direction: column; gap: 12px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="vert-rule"></div>
+
+  <div class="page-wrap">
+
+    <!-- Header -->
+    <header>
+      <a href="https://andrewtsutsumi.com" class="logo"><span>Andrew</span> Tsutsumi</a>
+      <nav><a href="./index.html">← Back to COGS 127</a></nav>
+    </header>
+
+    <!-- Article Hero -->
+    <div class="article-hero">
+      <div class="eyebrow">
+        <span class="eyebrow-tag">COGS 127</span>
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-label">Case Study — Spring 2026</span>
+      </div>
+
+      <h1>Deadlock: Designing a<br /><em>Post-Game Analytics Flow</em><br />Players Actually Use</h1>
+      <p class="article-sub">A cognitive systems design case study</p>
+
+      <div class="meta-row">
+        <div class="meta-item">
+          <p class="meta-label">Role</p>
+          <p class="meta-value">User Research, Prototyping &amp; Designing</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">Team</p>
+          <p class="meta-value">David Perez, Jake Orozco, Andrew Hernandez</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">Timeline</p>
+          <p class="meta-value">10 weeks, Spring 2026</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">Tools</p>
+          <p class="meta-value">Figma, Discord</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Article Body -->
+    <div class="article-body">
+
+      <!-- Overview -->
+      <div class="article-section">
+        <div class="section-label">
+          <h2>Overview</h2>
+          <div class="section-label-line"></div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-num">13</div>
+            <div class="stat-desc">post-match analytics tabs available in Deadlock</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">3</div>
+            <div class="stat-desc">average tabs actually used by players in our research</div>
+          </div>
+        </div>
+
+        <p>Valve's Deadlock gives players 13 different post-match analytics tabs. In our user research, the average player used three. This was surprising and really put into perspective how impactful our project could be.</p>
+      </div>
+
+      <!-- Why this project -->
+      <div class="article-section">
+        <div class="section-label">
+          <h2>Why this project</h2>
+          <div class="section-label-line"></div>
+        </div>
+
+        <p>Deadlock is in closed beta, which means the way it teaches players to improve is still being written. That's a rare window. Most competitive games freeze their post-match systems before anyone questions whether those systems actually help players get better. We picked this project because we wanted to ask that question before it was too late.</p>
+
+        <p>My experience with these particular type of games are somewhat limited. I have played different MOBAss through the years and I do play a lot of competitive video games. One of the biggest problems I've had playing these games is the post-match analytics — where it seems like an information dump of all the different stats throughout the game. I've never been one to try to understand the stats and find actionable steps to improve, based on the sole reason that I get overwhelmed and don't want to spend the mental strain of trying to figure it out.</p>
+
+        <p>The project goes beyond gaming. Designing for a player staring at 13 tabs of data is the same design problem as designing for a doctor reading a patient dashboard or an analyst reading a financial report. Too much information, no hierarchy, no clear next action. We treated Deadlock as a case study in turning data into something a person can actually use.</p>
+      </div>
+
+      <!-- The problem -->
+      <div class="article-section">
+        <div class="section-label">
+          <h2>The problem</h2>
+          <div class="section-label-line"></div>
+        </div>
+
+        <p>Competitive players want to improve, but Deadlock's current post-match screen buries the signal in the noise. Even high-rank players ignore most of the analytics — which means slow learning, repeated mistakes, and players who eventually stop checking the screen at all.</p>
+
+        <p>The global games market is projected to hit roughly $188 billion in 2025, and tools like Mobalytics (10M+ users) and Overwolf (113M monthly active users) prove that players are already looking outside their games for analytics that actually help them improve. Deadlock currently sends those players elsewhere. A better native analytics experience would keep them engaged, support real skill growth, and differentiate the game in a crowded competitive market.</p>
+      </div>
+
+      <!-- User Research Methods -->
+      <div class="article-section">
+        <div class="section-label">
+          <h2>User Research</h2>
+          <div class="section-label-line"></div>
+        </div>
+
+        <p>We ran semi-structured interviews over Discord with two ranked Deadlock players: Kenny (Phantom rank, 300+ hours) and Jeremy (Archon rank, 250+ hours). We chose experienced players because they've used the current analytics system long enough to have real opinions about what works and what doesn't. We also did field-study observation through Twitch streams to see how players actually behave during live matches, when interview self-reports aren't an option.</p>
+
+        <p><strong style="color: var(--ink); font-weight: 500;">What we expected:</strong> We expected high-rank players to be power users of the analytics screen. A player with 300 hours, we thought, would dig into every available stat. The whole point of having 13 tabs is that serious players want depth, right? We were wrong.</p>
+
+        <p><strong style="color: var(--ink); font-weight: 500;">What we found:</strong> Kenny used 2 of 13 tabs. Jeremy used 4 of 13. Both told us, in different ways, that most of the available analytics weren't worth their time. Kenny was selective and efficiency-driven. He used Lane Stats to understand how the first ten minutes of a match developed, and Damage Dealt by Type to evaluate whether his build and abilities actually produced value. Everything else, he glanced at and skipped.</p>
+
+        <blockquote>
+          <p>"A lot of the other tabs are there, but I don't really use them much."</p>
+          <cite>— Kenny, Phantom rank, 300+ hours</cite>
+        </blockquote>
+
+        <p>Jeremy's response was even clearer. When we asked him about the deeper analytics, he told us:</p>
+
+        <blockquote>
+          <p>"I think the graph is cool but I'm tryna move on. I'm not trying to check all that."</p>
+          <cite>— Jeremy, Archon rank, 250+ hours</cite>
+        </blockquote>
+
+        <p>Jeremy's response really surprised me. I thought that someone at such a high level in the game would care more and put more time into digging deeper into the stats — but we found the opposite. He could not be bothered with checking all that out. If someone like myself gave that answer I wouldn't be as surprised, because I'm not the highest level player and I don't really understand most of the stats. But coming from Jeremy — someone who is a high level player, someone who I thought would dig deep into the analytics — it changed everything. Initially our team was set on expanding the analytics for Deadlock, but this pushed us in a different direction.</p>
+      </div>
+
+      <!-- The surprise -->
+      <div class="article-section">
+        <div class="section-label">
+          <h2>The surprise</h2>
+          <div class="section-label-line"></div>
+        </div>
+
+        <p>The most surprising finding wasn't that casual players ignore analytics. It was that expert players ignore them too. We had assumed expertise would mean broader engagement — a serious player using everything available to them. The opposite was true. Expertise made players more selective, not less. They knew exactly which two or three stats answered the question "why did this match go the way it went," and they ignored the rest.</p>
+
+        <p>That reframed our entire design direction. The problem wasn't that Deadlock had too few analytics. It was that Deadlock had too many, none of them prioritized, and no path from "here's a stat" to "here's what to do about it."</p>
+
+        <p>We also had a hard time finding players who weren't a high rank — mainly because the game is in closed beta, meaning most of the players are people who are more experienced with these types of games. That limitation shaped the scope of our findings.</p>
+      </div>
+
+      <!-- How research shaped the design -->
+      <div class="article-section">
+        <div class="section-label">
+          <h2>How research shaped the design</h2>
+          <div class="section-label-line"></div>
+        </div>
+
+        <p>Three findings drove our design decisions directly:</p>
+
+        <div class="findings-list">
+          <div class="finding-card">
+            <span class="finding-num">01</span>
+            <div>
+              <p class="finding-title">Players already trust certain analytics</p>
+              <p class="finding-body">Kenny named Lane Stats and Damage by Type as the two he actually uses. Rather than asking him to learn a new system, we built those exact analytics into our AI Insights screen as supporting evidence for the recommendations. Familiar data, new framing.</p>
+            </div>
+          </div>
+          <div class="finding-card">
+            <span class="finding-num">02</span>
+            <div>
+              <p class="finding-title">Players want curation, not more data</p>
+              <p class="finding-body">Both participants used a small subset of available stats. Our AI Insights screen ranks recommendations as Critical, Important, or Moderate — surfacing three prioritized items instead of dumping 13 equal-weight tabs. Fewer choices, clearer hierarchy.</p>
+            </div>
+          </div>
+          <div class="finding-card">
+            <span class="finding-num">03</span>
+            <div>
+              <p class="finding-title">Players want a next action</p>
+              <p class="finding-body">Jeremy specifically wanted post-match data that connected to something he could do differently. Our flow ends on a Recommended Training screen that turns the AI's insights into short, personalized drills — closing the loop between "here's what went wrong" and "here's what to practice."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end article-body -->
+
+    <!-- Footer -->
+    <footer>
+      <span class="footer-name">Andrew Tsutsumi</span>
+      <span class="footer-course">COGS 127 &nbsp;·&nbsp; UC San Diego</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>

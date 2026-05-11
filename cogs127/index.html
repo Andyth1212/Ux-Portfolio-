@@ -197,6 +197,28 @@
       animation: pulse 2s ease-in-out infinite;
     }
 
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 14px 28px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .cta-btn:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.4; transform: scale(0.85); }
@@ -454,10 +476,7 @@
         <h1>Designing for<br /><em>Human Minds</em></h1>
         <p class="subtitle">A cognitive systems design case study</p>
 
-        <div class="status-badge">
-          <span class="status-dot"></span>
-          Currently in progress — check back soon
-        </div>
+        <a href="./case-study.html" class="cta-btn">Read the Case Study →</a>
       </div>
 
       <div class="hero-right">
@@ -471,7 +490,7 @@
         </div>
         <div class="meta-block">
           <p class="meta-label">Status</p>
-          <p class="meta-value">Coming Soon</p>
+          <p class="meta-value">Published</p>
         </div>
       </div>
     </section>
@@ -482,12 +501,12 @@
       <div class="description-content">
         <h2>About this project</h2>
         <p>
-          This case study explores the intersection of cognitive science and user experience design —
-          applying mental models, perception, and decision-making research to real-world interface challenges.
+          Valve's Deadlock gives players 13 post-match analytics tabs. The average player used three.
+          This case study examines why — and redesigns the experience to surface what actually matters.
         </p>
         <p>
-          Full write-up, research findings, prototypes, and reflections will be published here once the project is complete.
-          In the meantime, feel free to <a href="https://andrewtsutsumi.com" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-pale);">explore the rest of the portfolio</a>.
+          Through user interviews, Twitch field observation, and cognitive design principles, we rebuilt
+          Deadlock's post-game flow around a simple idea: fewer choices, clearer hierarchy, and a next action.
         </p>
       </div>
     </section>
@@ -495,25 +514,25 @@
     <!-- Topics -->
     <section class="topics-section">
       <div class="topics-header">
-        <h2>What to expect</h2>
+        <h2>Inside the case study</h2>
         <div class="topics-header-line"></div>
       </div>
 
       <div class="topics-grid">
         <div class="topic-card">
           <span class="topic-num">01</span>
-          <p class="topic-name">Research & Discovery</p>
-          <p class="topic-desc">User interviews, cognitive task analysis, and problem framing grounded in behavioral research.</p>
+          <p class="topic-name">User Research</p>
+          <p class="topic-desc">Semi-structured interviews with ranked Deadlock players and field observation via Twitch streams.</p>
         </div>
         <div class="topic-card">
           <span class="topic-num">02</span>
-          <p class="topic-name">Ideation & Prototyping</p>
-          <p class="topic-desc">Wireframes, low-fi sketches, and iterative design explorations informed by cognitive principles.</p>
+          <p class="topic-name">Key Finding</p>
+          <p class="topic-desc">Expert players were more selective, not less. Expertise meant ignoring 11 of 13 tabs — not using them all.</p>
         </div>
         <div class="topic-card">
           <span class="topic-num">03</span>
-          <p class="topic-name">Testing & Reflection</p>
-          <p class="topic-desc">Usability evaluations, findings synthesis, and design recommendations backed by data.</p>
+          <p class="topic-name">Design Direction</p>
+          <p class="topic-desc">An AI Insights screen with prioritized recommendations and a Recommended Training flow to close the loop.</p>
         </div>
       </div>
     </section>
