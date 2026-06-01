@@ -557,8 +557,65 @@
     .ft-links a:hover{color:var(--white)}
     .ft-copy{font-size:0.65rem;color:var(--faint);letter-spacing:0.04em}
 
+    /* ─── SCROLL INDICATOR ─── */
+    #scroll-nav {
+      position: fixed;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 500;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 18px;
+    }
+
+    .sn-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .sn-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue);
+      opacity: 0;
+      transform: translateX(6px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .sn-item:hover .sn-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .sn-line {
+      width: 18px;
+      height: 1.5px;
+      background: var(--blue);
+      opacity: 0.25;
+      transition: width 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease;
+      flex-shrink: 0;
+    }
+
+    .sn-item.active .sn-line {
+      width: 36px;
+      opacity: 1;
+    }
+
+    .sn-item.active .sn-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
     /* ─── RESPONSIVE ─── */
     @media(max-width:900px){
+      #scroll-nav { display: none; }
       .nav-links-d{display:none}
       .hamburger{display:flex}
       .btn-nav{display:none}
@@ -629,6 +686,30 @@
       <button class="hamburger" id="ham" onclick="toggleMenu()">
         <span></span><span></span><span></span>
       </button>
+    </div>
+  </nav>
+
+  <!-- SCROLL INDICATOR -->
+  <nav id="scroll-nav">
+    <div class="sn-item" data-target="hero">
+      <span class="sn-label">Home</span>
+      <span class="sn-line"></span>
+    </div>
+    <div class="sn-item" data-target="projects">
+      <span class="sn-label">Projects</span>
+      <span class="sn-line"></span>
+    </div>
+    <div class="sn-item" data-target="about">
+      <span class="sn-label">About</span>
+      <span class="sn-line"></span>
+    </div>
+    <div class="sn-item" data-target="services">
+      <span class="sn-label">Services</span>
+      <span class="sn-line"></span>
+    </div>
+    <div class="sn-item" data-target="contact">
+      <span class="sn-label">Contact</span>
+      <span class="sn-line"></span>
     </div>
   </nav>
 
@@ -1133,6 +1214,32 @@
   /* ═══════════════════════════════════
      FORM
   ═══════════════════════════════════ */
+  /* ═══════════════════════════════════
+     SCROLL INDICATOR
+  ═══════════════════════════════════ */
+  const snItems = document.querySelectorAll('.sn-item');
+
+  snItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const t = document.getElementById(item.dataset.target);
+      if (t) lenis.scrollTo(t, { offset: -68 });
+    });
+  });
+
+  const snSections = ['hero','projects','about','services','contact'].map(id => document.getElementById(id));
+
+  const snIO = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        snItems.forEach(item => item.classList.remove('active'));
+        const active = document.querySelector(`.sn-item[data-target="${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  snSections.forEach(s => { if (s) snIO.observe(s); });
+
   function handleSubmit(e) {
     e.preventDefault();
     const note = document.getElementById('fNote');
