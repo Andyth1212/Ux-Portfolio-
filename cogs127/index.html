@@ -54,7 +54,7 @@
     .page-wrap {
       max-width: 1080px;
       margin: 0 auto;
-      padding: 0 40px;
+      padding: 0 56px;
     }
 
     /* ─── Header ─── */
@@ -577,14 +577,15 @@
     /* ─── Scroll Indicator ─── */
     #scroll-nav {
       position: fixed;
-      right: 24px;
+      left: 16px;
       top: 50%;
       transform: translateY(-50%);
       z-index: 500;
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
+      align-items: flex-start;
       gap: 5px;
+      width: fit-content;
     }
     .sn-item {
       display: flex;
@@ -599,7 +600,7 @@
       text-transform: uppercase;
       color: var(--ink);
       opacity: 0;
-      transform: translateX(4px);
+      transform: translateX(-4px);
       transition: opacity 0.2s ease, transform 0.2s ease;
       white-space: nowrap;
     }
@@ -621,7 +622,7 @@
       border-radius: 1px;
     }
     .sn-item.active .sn-line {
-      width: 48px;
+      width: 36px;
       height: 2.5px;
       opacity: 1;
     }
@@ -720,12 +721,12 @@
     </header>
 
     <nav id="scroll-nav">
-      <div class="sn-item" data-target="s-hero"><span class="sn-label">Intro</span><span class="sn-line"></span></div>
-      <div class="sn-item" data-target="s-problem"><span class="sn-label">Problem</span><span class="sn-line"></span></div>
-      <div class="sn-item" data-target="s-research"><span class="sn-label">Research</span><span class="sn-line"></span></div>
-      <div class="sn-item" data-target="s-hifi"><span class="sn-label">Prototypes</span><span class="sn-line"></span></div>
-      <div class="sn-item" data-target="s-testing"><span class="sn-label">Testing</span><span class="sn-line"></span></div>
-      <div class="sn-item" data-target="s-before-after"><span class="sn-label">Before &amp; After</span><span class="sn-line"></span></div>
+      <div class="sn-item" data-target="s-hero"><span class="sn-line"></span><span class="sn-label">Intro</span></div>
+      <div class="sn-item" data-target="s-problem"><span class="sn-line"></span><span class="sn-label">Problem</span></div>
+      <div class="sn-item" data-target="s-research"><span class="sn-line"></span><span class="sn-label">Research</span></div>
+      <div class="sn-item" data-target="s-hifi"><span class="sn-line"></span><span class="sn-label">Prototypes</span></div>
+      <div class="sn-item" data-target="s-testing"><span class="sn-line"></span><span class="sn-label">Testing</span></div>
+      <div class="sn-item" data-target="s-before-after"><span class="sn-line"></span><span class="sn-label">Before &amp; After</span></div>
     </nav>
 
     <!-- Hero -->
