@@ -28,7 +28,7 @@
       background:var(--black);color:var(--white);
       font-family:var(--B);font-weight:300;
       -webkit-font-smoothing:antialiased;overflow-x:hidden;
-      cursor:none;
+      cursor:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='38' viewBox='0 0 28 38'><line x1='14' y1='1' x2='3' y2='27' stroke='%23f6efdf' stroke-width='5' stroke-linecap='round'/><line x1='14' y1='1' x2='3' y2='27' stroke='%23212f4a' stroke-width='3' stroke-linecap='round'/><line x1='14' y1='1' x2='25' y2='27' stroke='%23f6efdf' stroke-width='5' stroke-linecap='round'/><line x1='14' y1='1' x2='25' y2='27' stroke='%23212f4a' stroke-width='3' stroke-linecap='round'/><line x1='8' y1='16' x2='20' y2='16' stroke='%23f6efdf' stroke-width='4' stroke-linecap='round'/><line x1='8' y1='16' x2='20' y2='16' stroke='%23212f4a' stroke-width='2.5' stroke-linecap='round'/><line x1='5' y1='27' x2='5' y2='37' stroke='%23f6efdf' stroke-width='5' stroke-linecap='round'/><line x1='5' y1='27' x2='5' y2='37' stroke='%23212f4a' stroke-width='3' stroke-linecap='round'/><line x1='23' y1='27' x2='23' y2='37' stroke='%23f6efdf' stroke-width='5' stroke-linecap='round'/><line x1='23' y1='27' x2='23' y2='37' stroke='%23212f4a' stroke-width='3' stroke-linecap='round'/><line x1='5' y1='32' x2='23' y2='32' stroke='%23f6efdf' stroke-width='4' stroke-linecap='round'/><line x1='5' y1='32' x2='23' y2='32' stroke='%23212f4a' stroke-width='2.5' stroke-linecap='round'/></svg>") 14 1, auto;
     }
     body.no-scroll{overflow:hidden}
     ::selection{background:var(--blue);color:#f6efdf}
@@ -55,13 +55,7 @@
     }
 
     /* ─── CURSOR ─── */
-    #cur-dot{
-      position:fixed;top:0;left:0;width:8px;height:8px;
-      border-radius:50%;background:var(--blue);
-      pointer-events:none;z-index:9999;
-      transform:translate(-50%,-50%);
-      transition:transform 0.08s, width 0.2s, height 0.2s, background 0.2s;
-    }
+    #cur-dot{ display:none; }
     #cur-ring{
       position:fixed;top:0;left:0;width:40px;height:40px;
       border-radius:50%;border:1px solid rgba(33,47,74,0.3);
@@ -122,7 +116,7 @@
     .btn-nav:hover{background:var(--blue-d)}
     .hamburger{
       display:none;flex-direction:column;gap:5px;
-      cursor:none;background:none;border:none;padding:4px;
+      cursor:inherit;background:none;border:none;padding:4px;
     }
     .hamburger span{
       display:block;width:24px;height:1.5px;background:var(--white);
@@ -247,7 +241,7 @@
       letter-spacing:0.1em;text-transform:uppercase;
       padding:0.9rem 1.8rem;border-radius:2px;
       transition:background 0.2s,transform 0.15s,color 0.2s,border-color 0.2s;
-      cursor:none;position:relative;overflow:hidden;
+      cursor:inherit;position:relative;overflow:hidden;
     }
     .mag-blue{background:var(--blue);color:#f6efdf}
     .mag-blue:hover{background:var(--blue-d)}
@@ -296,7 +290,7 @@
       font-size:0.68rem;font-weight:500;letter-spacing:0.14em;
       text-transform:uppercase;color:var(--off);
       display:flex;align-items:center;gap:0.4rem;
-      transition:color 0.2s;cursor:none;
+      transition:color 0.2s;cursor:inherit;
     }
     .sec-more:hover{color:var(--white)}
 
@@ -325,7 +319,7 @@
       display:grid;grid-template-columns:5rem 1fr auto;
       align-items:center;gap:2rem;
       padding:2.5rem 2.5rem;
-      cursor:none;position:relative;
+      cursor:inherit;position:relative;
       transition:background 0.3s;
     }
     .proj-row::before{
@@ -534,7 +528,7 @@
       font-size:0.65rem;font-weight:500;letter-spacing:0.14em;
       text-transform:uppercase;color:var(--off);
       border:1px solid var(--border);padding:0.5rem 1rem;border-radius:100px;
-      transition:color 0.2s,border-color 0.2s;cursor:none;
+      transition:color 0.2s,border-color 0.2s;cursor:inherit;
     }
     .pill:hover{color:var(--blue);border-color:rgba(33,47,74,0.5)}
     .cform{display:flex;flex-direction:column;gap:1.25rem}
@@ -549,7 +543,7 @@
       font-size:0.88rem;font-weight:300;
       padding:0.85rem 1rem;outline:none;
       transition:border-color 0.2s;resize:none;
-      appearance:none;border-radius:2px;cursor:none;
+      appearance:none;border-radius:2px;cursor:inherit;
     }
     .fr input:focus,.fr textarea:focus,.fr select:focus{border-color:var(--blue)}
     .fr input::placeholder,.fr textarea::placeholder{color:rgba(33,47,74,0.35)}
