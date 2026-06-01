@@ -584,7 +584,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 7px;
+      gap: 5px;
     }
     .sn-item {
       display: flex;
@@ -612,16 +612,16 @@
       transform: translateX(0);
     }
     .sn-line {
-      width: 10px;
+      width: 20px;
       height: 1.5px;
       background: var(--ink);
-      opacity: 0.3;
+      opacity: 0.25;
       transition: width 0.4s cubic-bezier(0.16,1,0.3,1), height 0.4s ease, opacity 0.4s ease;
       flex-shrink: 0;
       border-radius: 1px;
     }
     .sn-item.active .sn-line {
-      width: 36px;
+      width: 48px;
       height: 2.5px;
       opacity: 1;
     }
@@ -652,17 +652,6 @@
     }
 
     /* ─── Decorative vertical rule ─── */
-    .vert-rule {
-      position: fixed;
-      right: 48px;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: linear-gradient(to bottom, transparent, var(--rule) 20%, var(--rule) 80%, transparent);
-      opacity: 0.5;
-      pointer-events: none;
-    }
-
     /* ─── Animations ─── */
     @keyframes fadeUp {
       to {
@@ -711,10 +700,6 @@
         flex-direction: column;
       }
 
-      .vert-rule {
-        display: none;
-      }
-
       footer {
         flex-direction: column;
         gap: 12px;
@@ -725,7 +710,6 @@
 </head>
 <body>
 
-  <div class="vert-rule"></div>
 
   <div class="page-wrap">
 
