@@ -54,16 +54,6 @@
     }
 
     /* ─── CURSOR ─── */
-    #cur-dot{ display:none; }
-    #cur-ring{
-      position:fixed;top:0;left:0;width:40px;height:40px;
-      border-radius:50%;border:1px solid rgba(33,47,74,0.3);
-      pointer-events:none;z-index:9998;
-      transform:translate(-50%,-50%);
-      transition:width 0.25s, height 0.25s, border-color 0.2s, opacity 0.2s;
-    }
-    body.cursor-hover #cur-dot{width:14px;height:14px}
-    body.cursor-hover #cur-ring{width:60px;height:60px;border-color:rgba(33,47,74,0.5)}
 
     /* ─── NAV ─── */
     nav{
@@ -607,9 +597,6 @@
   </div>
   <div id="pre-curtain"></div>
 
-  <!-- CURSOR -->
-  <div id="cur-dot"></div>
-  <div id="cur-ring"></div>
 
   <!-- OVERLAY -->
   <div class="overlay" id="overlay">
@@ -978,31 +965,6 @@
     });
   });
 
-  /* ═══════════════════════════════════
-     CUSTOM CURSOR
-  ═══════════════════════════════════ */
-  const dot  = document.getElementById('cur-dot');
-  const ring = document.getElementById('cur-ring');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
-  });
-
-  (function animRing() {
-    rx += (mx - rx) * 0.1;
-    ry += (my - ry) * 0.1;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(animRing);
-  })();
-
-  document.querySelectorAll('a, button, .proj-row, .svc-card, .pill').forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-  });
 
   /* ═══════════════════════════════════
      MAGNETIC BUTTONS
