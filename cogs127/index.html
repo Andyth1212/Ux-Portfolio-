@@ -197,28 +197,6 @@
       animation: pulse 2s ease-in-out infinite;
     }
 
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--cream);
-      background: var(--accent);
-      border: 1px solid var(--accent);
-      padding: 14px 28px;
-      border-radius: 2px;
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .cta-btn:hover {
-      background: var(--ink);
-      border-color: var(--ink);
-    }
-
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.4; transform: scale(0.85); }
@@ -258,16 +236,13 @@
       font-style: italic;
     }
 
-    /* ─── Description ─── */
-    .description-section {
+    /* ─── Content Sections ─── */
+    .content-section {
       padding: 80px 0;
       display: grid;
       grid-template-columns: 200px 1fr;
       gap: 64px;
       border-bottom: 1px solid var(--rule);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.9s ease forwards 0.7s;
     }
 
     .section-number {
@@ -279,101 +254,329 @@
       user-select: none;
     }
 
-    .description-content h2 {
+    .section-content h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 28px;
+      font-size: 36px;
       font-weight: 400;
       letter-spacing: 0.01em;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       color: var(--ink);
+      line-height: 1.15;
     }
 
-    .description-content p {
+    .section-content h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      margin-top: 36px;
+    }
+
+    .section-content h3:first-of-type {
+      margin-top: 0;
+    }
+
+    .section-content p {
       font-size: 15px;
-      line-height: 1.75;
+      line-height: 1.8;
       color: var(--ink-light);
-      max-width: 520px;
+      max-width: 600px;
     }
 
-    .description-content p + p {
+    .section-content p + p {
       margin-top: 16px;
     }
 
-    /* ─── Topics grid ─── */
-    .topics-section {
-      padding: 80px 0;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.9s ease forwards 0.9s;
+    /* ─── Pull quote ─── */
+    .pull-quote {
+      border-left: 3px solid var(--accent);
+      padding: 20px 28px;
+      margin: 32px 0;
+      background: rgba(196, 80, 42, 0.04);
+      max-width: 600px;
     }
 
-    .topics-header {
-      display: flex;
-      align-items: baseline;
-      gap: 16px;
-      margin-bottom: 48px;
-    }
-
-    .topics-header h2 {
+    .pull-quote p {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 14px;
+      font-size: 20px;
+      font-style: italic;
       font-weight: 400;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .pull-quote cite {
+      display: block;
+      margin-top: 10px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      font-style: normal;
+    }
+
+    /* ─── Findings grid ─── */
+    .findings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 32px;
+      max-width: 620px;
+    }
+
+    .finding-card {
+      background: rgba(255,255,255,0.5);
+      border: 1px solid var(--rule);
+      padding: 24px;
+      border-radius: 2px;
+    }
+
+    .finding-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .finding-card p {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--ink-light);
+      max-width: none;
+    }
+
+    /* ─── Prototype showcase ─── */
+    .proto-screen {
+      margin-top: 36px;
+      max-width: 640px;
+    }
+
+    .proto-screen + .proto-screen {
+      margin-top: 48px;
+    }
+
+    .proto-screen-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .proto-screen-label .screen-tag {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-pale);
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+
+    .proto-screen-label .screen-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .proto-img-wrap {
+      width: 100%;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      background: #0d0d14;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+
+    .proto-img-wrap img {
+      width: 100%;
+      display: block;
+    }
+
+    .proto-caption {
+      margin-top: 14px;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--ink-light);
+      max-width: none;
+    }
+
+    /* ─── Before & After ─── */
+    .ba-pair {
+      margin-top: 40px;
+      max-width: 640px;
+    }
+
+    .ba-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .ba-images {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 20px;
+    }
+
+    .ba-images .ba-img-block + .ba-img-block {
+      margin-top: 8px;
+    }
+
+    .ba-divider-arrow {
+      text-align: center;
+      font-size: 20px;
+      color: var(--accent);
+      padding: 6px 0;
+      letter-spacing: 0.05em;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--ink-light);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      margin: 6px 0;
     }
 
-    .topics-header-line {
+    .ba-divider-arrow::before,
+    .ba-divider-arrow::after {
+      content: '';
       flex: 1;
       height: 1px;
       background: var(--rule);
     }
 
-    .topics-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--rule);
+    .ba-img-block {
+      position: relative;
+    }
+
+    .ba-img-caption {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .ba-img-placeholder {
+      width: 100%;
+      background: #0d0d14;
       border: 1px solid var(--rule);
+      border-radius: 3px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
     }
 
-    .topic-card {
-      background: var(--cream);
-      padding: 36px 28px;
-      transition: background 0.25s ease;
-      cursor: default;
+    .ba-img-placeholder img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
-    .topic-card:hover {
-      background: rgba(255,255,255,0.7);
+    .ba-img-placeholder span {
+      display: block;
+      padding: 48px 24px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--rule);
+      text-align: center;
     }
 
-    .topic-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 13px;
-      font-weight: 400;
+    .ba-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: var(--accent);
+      padding: 0 4px;
+      align-self: center;
+    }
+
+    .ba-caption-block {
+      padding: 20px 0 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .ba-caption-block p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--ink-light);
+      max-width: none;
+    }
+
+    /* ─── Divider label ─── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 48px 0 36px;
+    }
+
+    .section-divider span {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      white-space: nowrap;
+    }
+
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* ─── POV Statement ─── */
+    .pov-block {
+      border: 1px solid var(--rule);
+      padding: 36px 40px;
+      margin-top: 32px;
+      background: rgba(255,255,255,0.3);
+      max-width: 600px;
+      border-radius: 2px;
+    }
+
+    .pov-block .pov-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 16px;
       display: block;
     }
 
-    .topic-name {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ink);
-      margin-bottom: 8px;
-      letter-spacing: 0.02em;
-    }
-
-    .topic-desc {
-      font-size: 13px;
+    .pov-block p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      font-weight: 400;
       line-height: 1.6;
-      color: var(--ink-light);
+      color: var(--ink);
+      max-width: none;
     }
 
     /* ─── Footer ─── */
     footer {
-      padding: 40px 0;
+      padding: 48px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -415,6 +618,17 @@
       }
     }
 
+    .animate-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .animate-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* ─── Responsive ─── */
     @media (max-width: 760px) {
       .page-wrap {
@@ -427,7 +641,7 @@
         padding: 64px 0 56px;
       }
 
-      .description-section {
+      .content-section {
         grid-template-columns: 1fr;
         gap: 24px;
       }
@@ -436,8 +650,12 @@
         font-size: 48px;
       }
 
-      .topics-grid {
+      .findings-grid {
         grid-template-columns: 1fr;
+      }
+
+      .ba-images {
+        flex-direction: column;
       }
 
       .vert-rule {
@@ -474,9 +692,12 @@
         </div>
 
         <h1>Designing for<br /><em>Human Minds</em></h1>
-        <p class="subtitle">A cognitive systems design case study</p>
+        <p class="subtitle">Rethinking post-match analytics in Valve's Deadlock</p>
 
-        <a href="./case-study.html" class="cta-btn">Read the Case Study →</a>
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          Milestone 7 — Spring 2026
+        </div>
       </div>
 
       <div class="hero-right">
@@ -486,64 +707,311 @@
         </div>
         <div class="meta-block">
           <p class="meta-label">Course</p>
-          <p class="meta-value">COGS 127 — Designing Human-Centered Technologies</p>
+          <p class="meta-value">COGS 127 — Designing Human-Centered Technologies, UC San Diego</p>
         </div>
         <div class="meta-block">
-          <p class="meta-label">Status</p>
-          <p class="meta-value">Published</p>
+          <p class="meta-label">Product</p>
+          <p class="meta-value">Valve's Deadlock — Closed Beta</p>
+        </div>
+        <div class="meta-block">
+          <p class="meta-label">Role</p>
+          <p class="meta-value">UX Research &amp; Interaction Design</p>
         </div>
       </div>
     </section>
 
-    <!-- Description -->
-    <section class="description-section">
+    <!-- 01 — Problem -->
+    <section class="content-section animate-in">
       <div class="section-number">01</div>
-      <div class="description-content">
-        <h2>About this project</h2>
+      <div class="section-content">
+        <h2>The Problem</h2>
         <p>
-          Valve's Deadlock gives players 13 post-match analytics tabs. The average player used three.
-          This case study examines why — and redesigns the experience to surface what actually matters.
+          Deadlock is Valve's competitive MOBA currently in closed beta. After each match, the game offers thirteen different statistical breakdowns — lane stats, damage dealt, gold economy, kill timelines, and more. On paper, that sounds like a rich feedback system.
         </p>
         <p>
-          Through user interviews, Twitch field observation, and cognitive design principles, we rebuilt
-          Deadlock's post-game flow around a simple idea: fewer choices, clearer hierarchy, and a next action.
+          In practice, the players we researched used an average of two to four of those thirteen tabs. Most of the analytics were simply ignored — not because they were broken, but because they weren't compelling enough to explore.
+        </p>
+        <p>
+          The problem isn't missing data. It's that the data doesn't answer the questions players actually care about in a way they can act on.
+        </p>
+
+        <div class="pull-quote">
+          <p>"A lot of the other tabs are there, but I don't really use them much."</p>
+          <cite>— Kenny, Phantom rank, 300+ hours in Deadlock</cite>
+        </div>
+
+        <p>
+          This project explores how Deadlock's analytics experience could be redesigned to support player learning, performance reflection, and strategic decision-making — without adding more complexity to an already information-dense interface.
         </p>
       </div>
     </section>
 
-    <!-- Topics -->
-    <section class="topics-section">
-      <div class="topics-header">
-        <h2>Inside the case study</h2>
-        <div class="topics-header-line"></div>
-      </div>
+    <!-- 02 — Research -->
+    <section class="content-section animate-in">
+      <div class="section-number">02</div>
+      <div class="section-content">
+        <h2>User Research</h2>
 
-      <div class="topics-grid">
-        <div class="topic-card">
-          <span class="topic-num">01</span>
-          <p class="topic-name">User Research</p>
-          <p class="topic-desc">Semi-structured interviews with ranked Deadlock players and field observation via Twitch streams.</p>
+        <h3>Methods</h3>
+        <p>
+          Our team used two research methods to understand how players currently engage with Deadlock's analytics. First, we conducted semi-structured interviews with ranked players — specifically those at Ritualist rank or above, who have enough game time to have formed real opinions about the post-match system. Second, we conducted field observation through live gameplay streams on Twitch, watching how players interact with in-game data in real time.
+        </p>
+        <p>
+          What I found most valuable about the interview method was that it forced us to listen for behavior, not just preference. We didn't ask "do you like the analytics screen?" We asked players to walk us through exactly what they do after a match ends — step by step — and let the patterns reveal themselves.
+        </p>
+
+        <h3>Participant 1 — Kenny, 23, Phantom Rank</h3>
+        <p>
+          Kenny has over 300 hours in Deadlock and plays at Phantom, the third highest rank in the game. I expected a player at his level to explore more of the post-match data than a newer player. What I found was the opposite.
+        </p>
+        <p>
+          Kenny told us he consistently returns to exactly two post-match tabs: Lane Stats and Damage Dealt by Type. Lane Stats tells him how the first ten minutes of the match unfolded. Damage by Type tells him how effective his build actually was. Everything else sits unused. Not because it's bad — but because it doesn't directly answer "why did this match go the way it did?"
+        </p>
+
+        <div class="pull-quote">
+          <p>"I only really check the in-game stuff for a second unless I need to counter something, which I usually notice without the graph."</p>
+          <cite>— Kenny</cite>
         </div>
-        <div class="topic-card">
-          <span class="topic-num">02</span>
-          <p class="topic-name">Key Finding</p>
-          <p class="topic-desc">Expert players were more selective, not less. Expertise meant ignoring 11 of 13 tabs — not using them all.</p>
+
+        <h3>Participant 2 — Jeremy, 21, Archon Rank</h3>
+        <p>
+          Jeremy plays at Archon rank with 250+ hours. He used four of the thirteen post-match tabs in our session — slightly more than Kenny — but his attitude was telling. He said outright that he's "not trying to check all that" and would rather move on after a match. He did express genuine interest in analytics that don't currently exist in the game, like tracking teamfight participation or resource denial.
+        </p>
+        <p>
+          What struck me about Jeremy's session was the combination of disengagement with the current system and interest in something better. He wasn't opposed to analytics — he was under-served by the ones available.
+        </p>
+
+        <h3>Key Insight</h3>
+        <p>
+          The clearest finding from both interviews: expertise doesn't lead to broader analytics engagement — it leads to more selective engagement. An experienced player doesn't explore more tabs over time. They learn which two or three are worth their attention and ignore the rest. A better design doesn't add more; it curates better.
+        </p>
+      </div>
+    </section>
+
+    <!-- 03 — Hi-Fi Prototypes -->
+    <section class="content-section animate-in">
+      <div class="section-number">03</div>
+      <div class="section-content">
+        <h2>High-Fidelity Prototypes</h2>
+        <p>
+          After our initial research and low-fi sketches, we built a high-fidelity prototype that shifted the core design direction from a post-game analytics dashboard to a live in-game tactical assistant. The key insight driving that shift: if players only engage with analytics for a second in the middle of a match, the interface needs to meet them there — not ask them to navigate somewhere else.
+        </p>
+        <p>
+          The prototype spans five screens. Two are shown here. The system is framed as a "Combat Assistant" — always on, always contextual — rather than a static report you review after the fact.
+        </p>
+
+        <div class="proto-screen">
+          <div class="proto-screen-label">
+            <span class="screen-tag">Screen 1</span>
+            <span class="screen-name">Tactical Overview</span>
+          </div>
+          <div class="proto-img-wrap">
+            <img src="hifi-tactical-overview.png" alt="Tactical Overview screen — in-game Combat Assistant showing loadout, combat effectiveness, and analysis mode selection" />
+          </div>
+          <p class="proto-caption">
+            The entry point of the in-game flow. The left panel shows the player's current loadout (ShadowRunner, Level 47), K/D/A, and combat score. The right panel surfaces three Combat Effectiveness bars — Lane Dominance at 87%, Teamfight Impact at 62%, and Objective Control at a critical 35%. At the bottom, the player chooses between Manual Review and the recommended Strategic Advisor path. The score badge in the top right (24–38, LOSING) anchors every recommendation to the actual match state.
+          </p>
+          <p class="proto-caption" style="margin-top: 10px;">
+            The key design decision here was preserving the manual path while making the AI path the clear recommended choice. Our research showed players like Kenny still want the option to verify data themselves rather than fully trusting an AI — so both options needed to feel equally legitimate, not like one was a fallback.
+          </p>
         </div>
-        <div class="topic-card">
-          <span class="topic-num">03</span>
-          <p class="topic-name">Design Direction</p>
-          <p class="topic-desc">An AI Insights screen with prioritized recommendations and a Recommended Training flow to close the loop.</p>
+
+        <div class="proto-screen">
+          <div class="proto-screen-label">
+            <span class="screen-tag">Screen 5</span>
+            <span class="screen-name">Combat Training</span>
+          </div>
+          <div class="proto-img-wrap">
+            <img src="hifi-combat-training.png" alt="Combat Training screen — AI-generated tactical drills with severity labels, duration, skill level, and Begin Drill CTA" />
+          </div>
+          <p class="proto-caption">
+            The action layer at the end of the flow. Three drills are generated from the match's specific combat data: Combat Positioning (Critical, 8 min), Defensive Loadout (Important, 5 min), and Objective Control (Moderate). Each card shows severity color coding, a time estimate, skill level, focus areas, and a direct "Begin Drill" CTA. The "AI Personalized — 3 Drills Active" badge in the top right reinforces that these are not generic tutorials.
+          </p>
+          <p class="proto-caption" style="margin-top: 10px;">
+            Jeremy specifically asked for analytics that connected to things he could actually do differently. This screen is the answer to that ask. The drill ordering mirrors recommendation priority from the Tactical Brief earlier in the flow — Combat Positioning is listed first because it was flagged as a critical weakness, not arbitrarily.
+          </p>
         </div>
+      </div>
+    </section>
+
+    <!-- 04 — User Testing -->
+    <section class="content-section animate-in">
+      <div class="section-number">04</div>
+      <div class="section-content">
+        <h2>User Testing</h2>
+
+
+        <h3>Methodology</h3>
+        <p>
+          After building our high-fidelity Figma prototypes, we returned to the same two participants — Kenny and Jeremy — and ran informal remote user testing sessions over Zoom screen share. We showed each participant two distinct prototype flows: a post-game analytics flow focused on AI-driven recommendations and training drills, and an in-game analytics flow designed as a real-time tactical assistant.
+        </p>
+        <p>
+          We started each session by asking for first impressions without any prompting. Then we walked participants through specific tasks: finding a key weakness from the match, generating AI recommendations, understanding why a recommendation was made, and locating a training drill from that recommendation. Finally, we asked them to compare both flows directly.
+        </p>
+        <p>
+          Because Kenny and Jeremy were also our original interview participants, they gave us the unusual advantage of being able to compare what they said in research to how they actually behaved with a prototype in front of them.
+        </p>
+
+        <h3>What Kenny Responded To</h3>
+        <p>
+          Kenny understood the post-game prototype immediately and responded well to the AI Insights screen — specifically because it surfaced the Damage by Type chart, which he already trusts, as supporting evidence for the AI recommendations. That design decision paid off. Making the analytics he already valued feel like proof rather than extra noise was the right call.
+        </p>
+        <p>
+          He responded more strongly to the in-game prototype overall. The Tactical Brief screen, which described the match situation with language like "You dominated early engagements, but tactical errors cost mid-game control," felt more useful to him than a stat breakdown. His main critique was visual: the UI felt too much like a separate dashboard rather than something embedded inside Deadlock's world. He suggested placing the interface over a blurred in-game background to make it feel like an overlay rather than a standalone app.
+        </p>
+
+        <h3>What Jeremy Responded To</h3>
+        <p>
+          Jeremy's most positive reaction was to the Recommended Training screen in the post-game flow. In our earlier interview, he had specifically asked for analytics that connected to things he could actually do differently. Seeing a drill card with a severity tag, time estimate, and "Start Training" button — built from the exact weaknesses found in his match — addressed that directly.
+        </p>
+        <p>
+          Jeremy raised the most useful structural critique of the session. On the in-game screens, he kept asking: "When would this actually show up?" He said the full-screen tactical interface would feel overwhelming during active combat but would be genuinely useful during a death screen, at the shop, or in the downtime between objectives. That timing question reshaped how we thought about the in-game flow entirely.
+        </p>
+
+        <h3>Cross-Participant Findings</h3>
+
+        <div class="findings-grid">
+          <div class="finding-card">
+            <p class="finding-label">Finding 1</p>
+            <p>Both users valued curated insights over raw data. They didn't want more graphs — they wanted the system to tell them what mattered and why.</p>
+          </div>
+          <div class="finding-card">
+            <p class="finding-label">Finding 2</p>
+            <p>The in-game prototype felt more exciting but needed stronger visual context — both users said it needed to feel embedded inside Deadlock, not like a separate app.</p>
+          </div>
+          <div class="finding-card">
+            <p class="finding-label">Finding 3</p>
+            <p>The post-game prototype was better for reflection and trust. Showing familiar data as evidence for AI recommendations made both participants more willing to act on them.</p>
+          </div>
+          <div class="finding-card">
+            <p class="finding-label">Finding 4</p>
+            <p>The in-game prototype needs to respect gameplay pressure. Full analysis during combat is overwhelming; short alerts with expandable details are the right approach.</p>
+          </div>
+        </div>
+
+        <h3>Personal Reflection</h3>
+        <p>
+          The finding that surprised me most was how strongly timing shaped the perceived value of the in-game interface. The same information felt useful or intrusive depending entirely on when in the match it appeared. That's a cognitive load problem — not a content problem — and it pushed us toward designing around game states rather than just designing screens.
+        </p>
+        <p>
+          I also came away from these sessions more confident in the hybrid direction: light tactical signals during the match, followed by deeper AI analysis and personalized training after. That structure mirrors how real athletes consume feedback — brief real-time cues during performance, fuller debriefs afterward. Building that rhythm into Deadlock's analytics felt like the most honest design response to what our participants told us.
+        </p>
+
+        <div class="pov-block">
+          <span class="pov-label">Point of View</span>
+          <p>Deadlock players don't need more analytics screens. They need a curated analytics system that adapts to the moment they're in — fast tactical signals during a match, and deeper explanations with actionable training after it.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 — Before & After -->
+    <section class="content-section animate-in">
+      <div class="section-number">05</div>
+      <div class="section-content">
+        <h2>Before &amp; After Stories</h2>
+        <p>
+          Based on user testing feedback, our team made two significant redesigns. Each change was driven directly by what participants told us and what we observed in their behavior.
+        </p>
+
+        <!-- Story 1 -->
+        <div class="section-divider">
+          <span>Screen 1 — In-Game Analytics Panel</span>
+        </div>
+
+        <div class="ba-pair">
+          <span class="ba-label">Before &amp; After</span>
+          <div class="ba-images">
+            <div class="ba-img-block">
+              <p class="ba-img-caption" style="text-align:left; margin-bottom:8px; margin-top:0;">Before — Full Dashboard</p>
+              <div class="ba-img-placeholder">
+                <img src="ba-before-1.png" alt="Before: Tactical Brief full-screen dashboard" />
+              </div>
+            </div>
+            <div class="ba-divider-arrow">Redesigned After User Testing</div>
+            <div class="ba-img-block">
+              <p class="ba-img-caption" style="text-align:left; margin-bottom:8px; margin-top:0;">After — Compact In-Game Overlay</p>
+              <div class="ba-img-placeholder">
+                <img src="ba-after-1.png" alt="After: Compact analytics panel overlaid on live Deadlock gameplay" />
+              </div>
+            </div>
+          </div>
+
+          <div class="ba-caption-block">
+            <h3 style="margin-top:0;">What Changed &amp; Why</h3>
+            <p>
+              The original in-game prototype displayed analytics inside a separate full-screen dashboard with tab-based navigation. The layout was organized and the content was solid, but both testers said the same thing: it didn't feel like it belonged inside Deadlock. Kenny described it as "too much like a separate analytics app." Jeremy questioned when the screens would even appear, saying a full dashboard would feel overwhelming in the middle of active combat.
+            </p>
+            <p>
+              In response, we consolidated the most relevant in-game signals — damage threats, lane pressure, missing enemies, farm pace, and next objective — into a compact right-side panel overlaid directly on live gameplay. A smaller left panel keeps core stats like KDA and net worth visible at a glance. The visual style was updated to match Deadlock's actual in-game UI: darker tones, native typography, and less empty space.
+            </p>
+            <p>
+              This directly addressed user testing Finding 4: the in-game prototype needs to reduce text and respect gameplay pressure. The side panel puts critical tactical information within reach without pulling the player out of the match.
+            </p>
+          </div>
+        </div>
+
+        <!-- Story 2 -->
+        <div class="section-divider">
+          <span>Screen 2 — Death Screen Analytics</span>
+        </div>
+
+        <div class="ba-pair">
+          <span class="ba-label">Before &amp; After</span>
+          <div class="ba-images">
+            <div class="ba-img-block">
+              <p class="ba-img-caption" style="text-align:left; margin-bottom:8px; margin-top:0;">Before — Separate Dashboard</p>
+              <div class="ba-img-placeholder">
+                <img src="ba-before-2.png" alt="Before: Combat Monitor full-screen performance dashboard" />
+              </div>
+            </div>
+            <div class="ba-divider-arrow">Redesigned After User Testing</div>
+            <div class="ba-img-block">
+              <p class="ba-img-caption" style="text-align:left; margin-bottom:8px; margin-top:0;">After — Death Screen Panel</p>
+              <div class="ba-img-placeholder">
+                <img src="ba-after-2.png" alt="After: Death Analysis panel overlaid on Deadlock respawn screen" />
+              </div>
+            </div>
+          </div>
+
+          <div class="ba-caption-block">
+            <h3 style="margin-top:0;">What Changed &amp; Why</h3>
+            <p>
+              In the Milestone 6 prototype, post-death analytics were only accessible by navigating into a separate dashboard after returning to a menu state. There was no connection between the moment of dying — which is exactly when a player might wonder "what just happened?" — and the information that could answer that question.
+            </p>
+            <p>
+              Jeremy named this gap directly. He said he would use in-game analytics specifically during "deaths, shop moments, or between objectives." Kenny's preference for the in-game prototype was built on speed and relevance — he wanted information that could still affect his next decision inside the match.
+            </p>
+            <p>
+              The redesigned death screen places a Death Analysis panel directly on Deadlock's respawn view, appearing automatically when the player dies. It immediately shows the primary cause of death in plain language, a damage breakdown by type (a stat Kenny specifically called out as one he already trusts), a positioning note, a suggested item adjustment, and a recommended build item with a one-click Queue button — all visible alongside the respawn countdown.
+            </p>
+            <p>
+              This respects the time constraint of the death window while delivering exactly what both users asked for: curated, specific, actionable insight at the moment it matters most. It closes the gap between the event that generates the most learning potential in a match and the feedback system that was designed to support it.
+            </p>
+          </div>
+        </div>
+
       </div>
     </section>
 
     <!-- Footer -->
     <footer>
       <span class="footer-name">Andrew Tsutsumi</span>
-      <span class="footer-course">COGS 127 &nbsp;·&nbsp; UC San Diego</span>
+      <span class="footer-course">COGS 127 &nbsp;·&nbsp; UC San Diego &nbsp;·&nbsp; Spring 2026</span>
     </footer>
 
   </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
