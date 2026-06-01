@@ -574,6 +574,54 @@
       max-width: none;
     }
 
+    /* ─── Scroll Indicator ─── */
+    #scroll-nav {
+      position: fixed;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 500;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 18px;
+    }
+    .sn-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .sn-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0;
+      transform: translateX(6px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+    }
+    .sn-item:hover .sn-label,
+    .sn-item.active .sn-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .sn-line {
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      opacity: 0.45;
+      transition: width 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease;
+      flex-shrink: 0;
+    }
+    .sn-item.active .sn-line {
+      width: 40px;
+      opacity: 1;
+    }
+    @media(max-width:900px) { #scroll-nav { display: none; } }
+
     /* ─── Footer ─── */
     footer {
       padding: 48px 0;
@@ -682,8 +730,17 @@
       <nav><a href="https://andrewtsutsumi.com">← Back to Portfolio</a></nav>
     </header>
 
+    <nav id="scroll-nav">
+      <div class="sn-item" data-target="s-hero"><span class="sn-label">Intro</span><span class="sn-line"></span></div>
+      <div class="sn-item" data-target="s-problem"><span class="sn-label">Problem</span><span class="sn-line"></span></div>
+      <div class="sn-item" data-target="s-research"><span class="sn-label">Research</span><span class="sn-line"></span></div>
+      <div class="sn-item" data-target="s-hifi"><span class="sn-label">Prototypes</span><span class="sn-line"></span></div>
+      <div class="sn-item" data-target="s-testing"><span class="sn-label">Testing</span><span class="sn-line"></span></div>
+      <div class="sn-item" data-target="s-before-after"><span class="sn-label">Before &amp; After</span><span class="sn-line"></span></div>
+    </nav>
+
     <!-- Hero -->
-    <section class="hero">
+    <section class="hero" id="s-hero">
       <div class="hero-left">
         <div class="eyebrow">
           <span class="eyebrow-tag">COGS 127</span>
@@ -721,7 +778,7 @@
     </section>
 
     <!-- 01 — Problem -->
-    <section class="content-section animate-in">
+    <section class="content-section animate-in" id="s-problem">
       <div class="section-number">01</div>
       <div class="section-content">
         <h2>The Problem</h2>
@@ -747,7 +804,7 @@
     </section>
 
     <!-- 02 — Research -->
-    <section class="content-section animate-in">
+    <section class="content-section animate-in" id="s-research">
       <div class="section-number">02</div>
       <div class="section-content">
         <h2>User Research</h2>
@@ -789,7 +846,7 @@
     </section>
 
     <!-- 03 — Hi-Fi Prototypes -->
-    <section class="content-section animate-in">
+    <section class="content-section animate-in" id="s-hifi">
       <div class="section-number">03</div>
       <div class="section-content">
         <h2>High-Fidelity Prototypes</h2>
@@ -835,7 +892,7 @@
     </section>
 
     <!-- 04 — User Testing -->
-    <section class="content-section animate-in">
+    <section class="content-section animate-in" id="s-testing">
       <div class="section-number">04</div>
       <div class="section-content">
         <h2>User Testing</h2>
@@ -905,7 +962,7 @@
     </section>
 
     <!-- 05 — Before & After -->
-    <section class="content-section animate-in">
+    <section class="content-section animate-in" id="s-before-after">
       <div class="section-number">05</div>
       <div class="section-content">
         <h2>Before &amp; After Stories</h2>
@@ -1011,6 +1068,26 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+    // Scroll indicator
+    const snItems = document.querySelectorAll('.sn-item');
+    snItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const t = document.getElementById(item.dataset.target);
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+    const snSections = ['s-hero','s-problem','s-research','s-hifi','s-testing','s-before-after'].map(id => document.getElementById(id));
+    const snIO = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          snItems.forEach(item => item.classList.remove('active'));
+          const active = document.querySelector(`.sn-item[data-target="${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.3 });
+    snSections.forEach(s => { if (s) snIO.observe(s); });
   </script>
 
 </body>
