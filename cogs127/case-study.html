@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Deadlock Case Study — Andrew Tsutsumi</title>
+  <title>Deadlock Case Study | Andrew Tsutsumi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
@@ -416,7 +416,7 @@
       <div class="eyebrow">
         <span class="eyebrow-tag">COGS 127</span>
         <span class="eyebrow-line"></span>
-        <span class="eyebrow-label">Case Study — Spring 2026</span>
+        <span class="eyebrow-label">Case Study, Spring 2026</span>
       </div>
 
       <h1>Deadlock: Designing a<br /><em>Post-Game Analytics Flow</em><br />Players Actually Use</h1>
@@ -475,7 +475,7 @@
 
         <p>Deadlock is in closed beta, which means the way it teaches players to improve is still being written. That's a rare window. Most competitive games freeze their post-match systems before anyone questions whether those systems actually help players get better. We picked this project because we wanted to ask that question before it was too late.</p>
 
-        <p>My experience with these particular type of games are somewhat limited. I have played different MOBAss through the years and I do play a lot of competitive video games. One of the biggest problems I've had playing these games is the post-match analytics — where it seems like an information dump of all the different stats throughout the game. I've never been one to try to understand the stats and find actionable steps to improve, based on the sole reason that I get overwhelmed and don't want to spend the mental strain of trying to figure it out.</p>
+        <p>My experience with these particular type of games are somewhat limited. I have played different MOBAs through the years and I do play a lot of competitive video games. One of the biggest problems I've had playing these games is the post-match analytics, where it seems like an information dump of all the different stats throughout the game. I've never been one to try to understand the stats and find actionable steps to improve, based on the sole reason that I get overwhelmed and don't want to spend the mental strain of trying to figure it out.</p>
 
         <p>The project goes beyond gaming. Designing for a player staring at 13 tabs of data is the same design problem as designing for a doctor reading a patient dashboard or an analyst reading a financial report. Too much information, no hierarchy, no clear next action. We treated Deadlock as a case study in turning data into something a person can actually use.</p>
       </div>
@@ -487,7 +487,15 @@
           <div class="section-label-line"></div>
         </div>
 
-        <p>Competitive players want to improve, but Deadlock's current post-match screen buries the signal in the noise. Even high-rank players ignore most of the analytics — which means slow learning, repeated mistakes, and players who eventually stop checking the screen at all.</p>
+        <p>Competitive players want to improve, but Deadlock's current post-match screen buries the signal in the noise. Even high-rank players ignore most of the analytics, which means slow learning, repeated mistakes, and players who eventually stop checking the screen at all.</p>
+      </div>
+
+      <!-- Why it matters -->
+      <div class="article-section">
+        <div class="section-label">
+          <h2>Why it matters</h2>
+          <div class="section-label-line"></div>
+        </div>
 
         <p>The global games market is projected to hit roughly $188 billion in 2025, and tools like Mobalytics (10M+ users) and Overwolf (113M monthly active users) prove that players are already looking outside their games for analytics that actually help them improve. Deadlock currently sends those players elsewhere. A better native analytics experience would keep them engaged, support real skill growth, and differentiate the game in a crowded competitive market.</p>
       </div>
@@ -507,17 +515,17 @@
 
         <blockquote>
           <p>"A lot of the other tabs are there, but I don't really use them much."</p>
-          <cite>— Kenny, Phantom rank, 300+ hours</cite>
+          <cite>Kenny, Phantom rank, 300+ hours</cite>
         </blockquote>
 
         <p>Jeremy's response was even clearer. When we asked him about the deeper analytics, he told us:</p>
 
         <blockquote>
           <p>"I think the graph is cool but I'm tryna move on. I'm not trying to check all that."</p>
-          <cite>— Jeremy, Archon rank, 250+ hours</cite>
+          <cite>Jeremy, Archon rank, 250+ hours</cite>
         </blockquote>
 
-        <p>Jeremy's response really surprised me. I thought that someone at such a high level in the game would care more and put more time into digging deeper into the stats — but we found the opposite. He could not be bothered with checking all that out. If someone like myself gave that answer I wouldn't be as surprised, because I'm not the highest level player and I don't really understand most of the stats. But coming from Jeremy — someone who is a high level player, someone who I thought would dig deep into the analytics — it changed everything. Initially our team was set on expanding the analytics for Deadlock, but this pushed us in a different direction.</p>
+        <p>Jeremy's response really surprised me. I thought that someone at such a high level in the game would care more and put more time into digging deeper into the stats, but we found the opposite. He could not be bothered with checking all that out. If someone like myself gave that answer I wouldn't be as surprised, because I'm not the highest level player and I don't really understand most of the stats. But coming from Jeremy, someone who is a high level player, someone who I thought would dig deep into the analytics, it changed everything. Initially our team was set on expanding the analytics for Deadlock, but this pushed us in a different direction.</p>
       </div>
 
       <!-- The surprise -->
@@ -527,11 +535,11 @@
           <div class="section-label-line"></div>
         </div>
 
-        <p>The most surprising finding wasn't that casual players ignore analytics. It was that expert players ignore them too. We had assumed expertise would mean broader engagement — a serious player using everything available to them. The opposite was true. Expertise made players more selective, not less. They knew exactly which two or three stats answered the question "why did this match go the way it went," and they ignored the rest.</p>
+        <p>The most surprising finding wasn't that casual players ignore analytics. It was that expert players ignore them too. We had assumed expertise would mean broader engagement, a serious player using everything available to them. The opposite was true. Expertise made players more selective, not less. They knew exactly which two or three stats answered the question "why did this match go the way it went," and they ignored the rest.</p>
 
         <p>That reframed our entire design direction. The problem wasn't that Deadlock had too few analytics. It was that Deadlock had too many, none of them prioritized, and no path from "here's a stat" to "here's what to do about it."</p>
 
-        <p>We also had a hard time finding players who weren't a high rank — mainly because the game is in closed beta, meaning most of the players are people who are more experienced with these types of games. That limitation shaped the scope of our findings.</p>
+        <p>We also had a hard time finding players who weren't a high rank, mainly because the game is in closed beta, meaning most of the players are people who are more experienced with these types of games. That limitation shaped the scope of our findings.</p>
       </div>
 
       <!-- How research shaped the design -->
@@ -555,14 +563,14 @@
             <span class="finding-num">02</span>
             <div>
               <p class="finding-title">Players want curation, not more data</p>
-              <p class="finding-body">Both participants used a small subset of available stats. Our AI Insights screen ranks recommendations as Critical, Important, or Moderate — surfacing three prioritized items instead of dumping 13 equal-weight tabs. Fewer choices, clearer hierarchy.</p>
+              <p class="finding-body">Both participants used a small subset of available stats. Our AI Insights screen ranks recommendations as Critical, Important, or Moderate, surfacing three prioritized items instead of dumping 13 equal-weight tabs. Fewer choices, clearer hierarchy.</p>
             </div>
           </div>
           <div class="finding-card">
             <span class="finding-num">03</span>
             <div>
               <p class="finding-title">Players want a next action</p>
-              <p class="finding-body">Jeremy specifically wanted post-match data that connected to something he could do differently. Our flow ends on a Recommended Training screen that turns the AI's insights into short, personalized drills — closing the loop between "here's what went wrong" and "here's what to practice."</p>
+              <p class="finding-body">Jeremy specifically wanted post-match data that connected to something he could do differently. Our flow ends on a Recommended Training screen that turns the AI's insights into short, personalized drills, closing the loop between "here's what went wrong" and "here's what to practice."</p>
             </div>
           </div>
         </div>
@@ -575,11 +583,11 @@
           <div class="section-label-line"></div>
         </div>
 
-        <p>The AI Insights screen surfaces three prioritized recommendations — Critical, Important, and Moderate — replacing 13 equal-weight tabs with a clear hierarchy and a direct path to action.</p>
+        <p>The AI Insights screen surfaces three prioritized recommendations (Critical, Important, and Moderate), replacing 13 equal-weight tabs with a clear hierarchy and a direct path to action.</p>
 
         <figure class="screenshot-figure">
           <img src="./ai-insights.png" alt="AI Insights screen prototype showing prioritized post-match recommendations in Deadlock" />
-          <figcaption>AI Insights screen — Figma prototype, Spring 2026</figcaption>
+          <figcaption>AI Insights screen, Figma prototype, Spring 2026</figcaption>
         </figure>
       </div>
 
